@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: python:3.7.3-stretch
+      auth:
+        username: avneesh_verma@yahoo.com
+        password: qwerty1234
+    working_directory: ~/repo
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "requirements.txt" }}
+        - v1-dependencies-
+    - run:
+        name: install dependencies
+        command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          make install
+          # Install hadolint
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+              chmod +x /bin/hadolint
+    - save_cache:
+        paths:
+        - ./venv
+        key: v1-dependencies-{{ checksum "requirements.txt" }}
+    - run:
+        name: run lint
+        command: ". venv/bin/activate\nmake lint           \n"
+    environment:
+    - CIRCLE_COMPARE_URL: https://github.com/avneeshverma1234/udacityapimod3example/compare/7be6535a1fea7f3940bbc631cd571abf7704cf63...7be6535a1fea7f3940bbc631cd571abf7704cf63
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
