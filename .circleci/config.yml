@@ -38,6 +38,7 @@ jobs:
           command: |
             # Install hadolint            
             sudo chmod +x /bin/hadolint
+            export PATH=$PATH:/bin/hadolint
       - save_cache:
           paths:
             - ./venv
