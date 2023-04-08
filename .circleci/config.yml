@@ -29,11 +29,15 @@ jobs:
             make upgrade-pip
             make install
       - run:
-          name: Install HadoLint
+          name: Get HadoLint
           command: |
             # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-                sudo chmod +x /bin/hadolint
+            sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64                 
+      - run:
+          name: Install HadoLint
+          command: |
+            # Install hadolint            
+            sudo chmod +x /bin/hadolint
       - save_cache:
           paths:
             - ./venv
