@@ -35,6 +35,9 @@ test-circleci:
 test:
 	@cd tests; pytest -vv --cov-report term-missing --cov=web --cov=nlib test_*.py
 
+upgrade-pip:
+	pip install --upgrade pip
+
 install:
 	pip install -r requirements.txt 
 
