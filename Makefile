@@ -12,11 +12,11 @@ env:
 	which pylint
 
 lint:
-	hadolint flask_app/Dockerfile
+	hadolint Dockerfile
 	pylint --load-plugins pylint_flask --disable=R,C flask_app/*.py nlib csvcli
 
 lint-docker:
-	hadolint -V flask_app/Dockerfile	
+	hadolint -V Dockerfile	
 
 validate-circleci:
 	# See https://circleci.com/docs/2.0/local-cli/#processing-a-config
